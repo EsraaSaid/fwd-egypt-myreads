@@ -1,13 +1,17 @@
-const Book = ({ title, authors, cover }) => {
+const Book = ({ id, title, authors = [], cover, imageLinks = {} }) => {
+    const authorsText = authors.reduce((acc, next) => {
+        if (acc === '') return next;
+        return `${acc}, ${next}`;
+    }, '');
 
     return (
         <div className="book">
-            <div className="book-top">
+            <div className="book-top" style={{ backgroundImage: `url('${imageLinks.thumbnail}')` }}>
                 {/* cover */}
                 <div className="book-cover">
                     {/* title??? */}
                     <div className="book-cover-title"></div>
-                    <img src={cover} alt={`${title} by ${authors}`} />
+                    {/* <img src={imageLinks.thumbnail} alt={`${title} by ${authorsText}`} /> */}
                 </div>
 
                 {/* actions button */}
@@ -18,7 +22,7 @@ const Book = ({ title, authors, cover }) => {
                 </div>
             </div>
             <div className="book-title">{title}</div>
-            <div className="book-authors">{authors}</div>
+            <div className="book-authors">{authorsText}</div>
         </div>
     )
 }

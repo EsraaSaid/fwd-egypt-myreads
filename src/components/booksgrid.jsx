@@ -4,10 +4,10 @@ const BooksGrid = ({ books = [] }) => {
     return (
         <ul className="books-grid">
             {
-                books.map(({ ...props }) => {
+                books.map((book) => {
                     return (
                         <li>
-                            <Book key={props.id} {...props} />
+                            <Book key={book.id} {...book} />
                         </li>
                     );
                 })
