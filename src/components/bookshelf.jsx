@@ -1,7 +1,6 @@
 import BooksGrid from "./booksgrid";
 
 const BookShelf = ({ title = '', books = [] }) => {
-
     return (
         <div className="bookshelf">
             <h2 className="bookshelf-title">{title}</h2>

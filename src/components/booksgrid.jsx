@@ -3,13 +3,15 @@ import Book from "./book";
 const BooksGrid = ({ books = [] }) => {
     return (
         <ul className="books-grid">
-            <li>
-                {
-                    books.map(({ ...props }) => {
-                        return <Book {...props} />
-                    })
-                }
-            </li>
+            {
+                books.map(({ ...props }) => {
+                    return (
+                        <li>
+                            <Book key={props.id} {...props} />
+                        </li>
+                    );
+                })
+            }
         </ul>
     )
 }
