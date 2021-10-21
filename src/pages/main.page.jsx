@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BookShelf from "../components/bookshelf";
 
 const MainPage = () => {
@@ -12,6 +13,12 @@ const MainPage = () => {
                 <BookShelf title="Want to Read" books={[]} />
                 <BookShelf title="Read" books={[]} />
             </main>
+
+            <aside className="open-search">
+                <Link to="/search">
+                    <button />
+                </Link>
+            </aside>
         </>
     )
 
