@@ -2,18 +2,15 @@ import { Component } from "react";
 import { withRouter } from 'react-router-dom';
 import { debounce } from "lodash";
 
+import { search } from '../BooksAPI';
 import BooksGrid from "../components/booksgrid";
-
-import searchResponse from '../mock/search.json';
 
 
 async function onQueryChange(e) {
     const query = e.target.value;
 
-    console.log('onQueryChange called');
     if (query) {
-        // TODO: hit API
-        const { books } = searchResponse;
+        const books = await search(query);
         this.setState({
             books,
         });
