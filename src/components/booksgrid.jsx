@@ -6,8 +6,8 @@ const BooksGrid = ({ books = [] }) => {
             {
                 books.map((book) => {
                     return (
-                        <li>
-                            <Book key={book.id} {...book} />
+                        <li key={book.id}>
+                            <Book {...book} />
                         </li>
                     );
                 })
