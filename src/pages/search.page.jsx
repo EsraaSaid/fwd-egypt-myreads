@@ -9,10 +9,10 @@ import BooksGrid from "../components/booksgrid";
 async function onQueryChange(e) {
     const query = e.target.value;
 
-    if (query) {
+    if (query.trim()) {
         const books = await search(query);
         this.setState({
-            books,
+            books: Array.isArray(books) ? books : [],
         });
     } else {
         this.setState({
