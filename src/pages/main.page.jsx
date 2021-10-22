@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import BookShelf from "../components/bookshelf";
 
-import getAllResponse from '../mock/getAll.json';
+import { getAll } from '../BooksAPI';
 
 /**
  * shelves:
@@ -25,9 +25,8 @@ class MainPage extends Component {
         this.fetchBooks();
     }
 
-    fetchBooks() {
-        // TODO: hit API
-        const { books } = getAllResponse;
+    async fetchBooks() {
+        const books = await getAll();
         const wantToRead = [];
         const currentlyReading = [];
         const read = [];
