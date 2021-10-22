@@ -7,12 +7,7 @@ const Book = ({ id, title, authors = [], cover, imageLinks = {} }) => {
     return (
         <div className="book">
             <div className="book-top" style={{ backgroundImage: `url('${imageLinks.thumbnail}')` }}>
-                {/* cover */}
-                <div className="book-cover">
-                    {/* title??? */}
-                    <div className="book-cover-title"></div>
-                    {/* <img src={imageLinks.thumbnail} alt={`${title} by ${authorsText}`} /> */}
-                </div>
+                {/* TODO: revisit cover styles/divs */}
 
                 {/* actions button */}
                 <div className="book-shelf-changer">
