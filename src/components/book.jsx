@@ -22,7 +22,6 @@ const Book = ({ id, title, authors, imageLinks, shelf: propShelf }) => {
             // if book ID is found in the shelf 'shelfKey', setShelf to the shelfKey
             if (shelves[shelfKey][id]) setShelf(shelfKey);
         });
-        alert('book shelf updated');
     });
 
     const updateBookShelf = async (e) => {
