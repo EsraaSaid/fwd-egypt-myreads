@@ -13,7 +13,7 @@ const coverImage = (imageLinks) => imageLinks ? imageLinks.thumbnail : '/default
 
 const Book = ({ id, title, authors, imageLinks, shelf: propShelf }) => {
     const { shelves, updateShelves } = useContext(ShelvesContext);
-    const [ shelf, setShelf ] = useState(propShelf);
+    const [ shelf, setShelf ] = useState(propShelf || 'none');
 
     useEffect(() => {
         if (propShelf) return null; // do nothing (ex: main page)
@@ -22,7 +22,9 @@ const Book = ({ id, title, authors, imageLinks, shelf: propShelf }) => {
             // if book ID is found in the shelf 'shelfKey', setShelf to the shelfKey
             if (shelves[shelfKey][id]) setShelf(shelfKey);
         });
-    });
+        // if still no shelf, then none
+        if (!shelf) setShelf('none');
+    }, []);
 
     const updateBookShelf = async (e) => {
         const shelf = e.target.value;
@@ -43,7 +45,7 @@ const Book = ({ id, title, authors, imageLinks, shelf: propShelf }) => {
                         <option value="currentlyReading">Currently Reading</option>
                         <option value="wantToRead">Want to Read</option>
                         <option value="read">Read</option>
-                        <option value="">None</option>
+                        <option value="none">None</option>
                     </select>
                 </div>
             </div>
