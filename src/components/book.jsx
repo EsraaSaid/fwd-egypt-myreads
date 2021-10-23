@@ -24,7 +24,7 @@ const Book = ({ id, title, authors, imageLinks, shelf: propShelf }) => {
         });
         // if still no shelf, then none
         if (!shelf) setShelf('none');
-    }, []);
+    }, [propShelf, shelf, shelves, id]);
 
     const updateBookShelf = async (e) => {
         const shelf = e.target.value;

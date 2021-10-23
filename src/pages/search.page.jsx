@@ -2,23 +2,17 @@ import { Component } from "react";
 import { withRouter } from 'react-router-dom';
 import { debounce } from "lodash";
 
-import { getAll, search } from '../BooksAPI';
+import { search } from '../BooksAPI';
 import BooksGrid from "../components/booksgrid";
-
-const getCategorizedBooks = (books, booksInShelves) => {
-    const idsSet = new Map();
-    booksInShelves.forEach(({ id, shelf }) => idsSet.set(id, shelf));
-    return books.map(book => ({ ...book, shelf: idsSet.get(book.id) }));
-};
 
 async function onQueryChange(e) {
     const query = e.target.value?.trim();
 
     if (query) {
-        const [books, booksInShelves] = await Promise.all([search(query), getAll()]);
+        const books = await search(query);
         this.setState({
             query,
-            books: Array.isArray(books) ? getCategorizedBooks(books, booksInShelves) : [],
+            books: Array.isArray(books) ? books : [],
         });
     } else {
         this.setState({
