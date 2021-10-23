@@ -2,20 +2,27 @@ import { Component } from "react";
 import { withRouter } from 'react-router-dom';
 import { debounce } from "lodash";
 
-import { search } from '../BooksAPI';
+import { getAll, search } from '../BooksAPI';
 import BooksGrid from "../components/booksgrid";
 
+const getCategorizedBooks = (books, booksInShelves) => {
+    const idsSet = new Map();
+    booksInShelves.forEach(({ id, shelf }) => idsSet.set(id, shelf));
+    return books.map(book => ({ ...book, shelf: idsSet.get(book.id) }));
+};
 
 async function onQueryChange(e) {
-    const query = e.target.value;
+    const query = e.target.value?.trim();
 
-    if (query.trim()) {
-        const books = await search(query);
+    if (query) {
+        const [books, booksInShelves] = await Promise.all([search(query), getAll()]);
         this.setState({
-            books: Array.isArray(books) ? books : [],
+            query,
+            books: Array.isArray(books) ? getCategorizedBooks(books, booksInShelves) : [],
         });
     } else {
         this.setState({
+            query,
             books: [],
         });
     }
@@ -24,6 +31,7 @@ class SearchPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            query: '',
             books: [],
         };
 
@@ -46,7 +54,10 @@ class SearchPage extends Component {
                 </header>
 
                 <main className="search-books-results">
-                    <BooksGrid books={this.state.books} />
+                    {this.state.query && !this.state.books.length
+                        ? 'no results found'
+                        : <BooksGrid books={this.state.books} />
+                    }
                 </main>
             </>
         );

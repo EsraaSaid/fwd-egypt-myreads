@@ -1,8 +1,8 @@
-import { Component } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import BookShelf from "../components/bookshelf";
 
-import { getAll } from '../BooksAPI';
+import { ShelvesContext } from "../contexts/shelves.context";
 
 /**
  * shelves:
@@ -11,60 +11,29 @@ import { getAll } from '../BooksAPI';
  * read
  */
 
-class MainPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            currentlyReading: [],
-            wantToRead: [],
-            read: [],
-        };
-    }
+const MainPage = () => {
+    const { shelves } = useContext(ShelvesContext);
 
-    componentDidMount() {
-        this.fetchBooks();
-    }
+    return (
+        <>
+            <header className="list-books-title">
+                <h1>MyReads</h1>
+            </header>
 
-    async fetchBooks() {
-        const books = await getAll();
-        const wantToRead = [];
-        const currentlyReading = [];
-        const read = [];
+            <main className="list-books-content">
+                <BookShelf title="Currently Reading" books={Object.values(shelves.currentlyReading)} />
+                <BookShelf title="Want to Read" books={Object.values(shelves.wantToRead)} />
+                <BookShelf title="Read" books={Object.values(shelves.read)} />
+            </main>
 
-        books.forEach(book => {
-            if (book.shelf === 'wantToRead') wantToRead.push(book);
-            else if (book.shelf === 'currentlyReading') currentlyReading.push(book);
-            else if (book.shelf === 'read') read.push(book);
-        });
+            <aside className="open-search">
+                <Link to="/search">
+                    <button />
+                </Link>
+            </aside>
+        </>
+    )
 
-        this.setState({
-            wantToRead,
-            currentlyReading,
-            read,
-        });
-    }
-
-    render() {
-        return (
-            <>
-                <header className="list-books-title">
-                    <h1>MyReads</h1>
-                </header>
-
-                <main className="list-books-content">
-                    <BookShelf title="Currently Reading" books={this.state.currentlyReading} />
-                    <BookShelf title="Want to Read" books={this.state.wantToRead} />
-                    <BookShelf title="Read" books={this.state.read} />
-                </main>
-
-                <aside className="open-search">
-                    <Link to="/search">
-                        <button />
-                    </Link>
-                </aside>
-            </>
-        )
-    }
 }
 
 
