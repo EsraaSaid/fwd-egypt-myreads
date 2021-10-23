@@ -16,7 +16,6 @@ const Book = ({ id, title, authors, imageLinks, shelf: propShelf }) => {
     const [ shelf, setShelf ] = useState(propShelf);
 
     useEffect(() => {
-        console.log(propShelf);
         if (propShelf) return null; // do nothing (ex: main page)
 
         ['currentlyReading', 'wantToRead', 'read'].forEach(shelfKey => {
