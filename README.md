@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# Book Tracking App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A user can add/move/delete books among bookshelves. By far, book shelves supported are:
+* Currently Reading
+* Want to Read
+* Read
+## Motivation
+This project is implemented under Udacity Nanodegree partnership with FWD Egypt program.
 
 ## Environment
 * Node >=14.17.6
